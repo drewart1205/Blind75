@@ -1,25 +1,23 @@
 def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
-        seen = []
-        max_area = area = 0
-        l = len(height)
-        i = 0
-        j = l
-        w = j-i
-        h = min(height[i], height[j])
-        area = h * w
-        for w in range(l, 0, -1)
+    """
+    :type height: List[int]
+    :rtype: int
+    """
+    max_area = 0
+    l = len(height)
+    seek_h = 0
+    i = 0
+    j = l - 1
+    for w in range(l - 1, 0, -1):
+        seek_h = int(max_area / w)
         
-        for i in range(l):
-            if height[i] == 0:
-                continue
-            for j in range(l, i, -1):
-                w = j - i
-                
-                area = w * h
-                if area > max_area:
-                    max_area = area
-        return max_area
+        h = min(height[i], height[j])
+        if h > seek_h:
+            max_area = h * w
+        
+        if height[i] > height[j]:
+            j-=1
+        else:
+            i+=1
+        
+    return max_area
